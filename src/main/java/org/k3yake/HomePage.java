@@ -7,6 +7,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.WebPage;
 
+import java.beans.Transient;
 import java.lang.Integer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.StatelessForm;
@@ -17,6 +18,9 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,8 +28,14 @@ public class HomePage extends WebPage {
 	private static final long serialVersionUID = 1L;
 
 	private int linkClickCount = 0;
+	private transient Hoge hoge = new Hoge();
 
 	public HomePage(){
+		try {
+			Class.forName("org.h2.Driver");
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 		add(new Label("message", new SessionModel()));
 
 		final Link actionLink = new Link("actionLink"){
