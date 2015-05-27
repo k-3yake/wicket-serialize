@@ -7,7 +7,6 @@ RUN cd /usr/local && \
     tar zxvf apache-tomcat-8.0.22.tar.gz
 RUN mkdir /usr/local/apache-tomcat-8.0.22/webapps/examples/countup
 COPY infra/server/base/dev/countup.jsp /usr/local/apache-tomcat-8.0.22/webapps/examples/jsp/countup.jsp
-#VOLUME /usr/local/apache-tomcat-8.0.22
 EXPOSE 8080
 
 
@@ -20,9 +19,12 @@ EXPOSE 8082
 COPY infra/server/base/dev/tomcatSession.sql /root/tomcatSession.sql
 RUN java -cp /usr/local/h2/bin/h2*.jar org.h2.tools.RunScript -url jdbc:h2:~/test -user sa -script /root/tomcatSession.sql
 
-#TomcatConf
+#未整理
 COPY infra/server/base/dev/context.xml /usr/local/apache-tomcat-8.0.22/conf/context.xml
 COPY infra/server/base/dev/h2-1.4.187.jar /usr/local/apache-tomcat-8.0.22/lib/h2-1.4.187.jar
+#COPY target/wicket-serialize-1.0-SNAPSHOT.war /usr/local/apache-tomcat-8.0.22/webapps/ws.war
+VOLUME /usr/local/apache-tomcat-8.0.22/webapps/ws.war
+#未整理
 
 #RUN Services
 COPY infra/server/base/dev/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
