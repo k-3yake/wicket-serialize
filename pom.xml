@@ -166,6 +166,14 @@
 					<wtpversion>${wtp.version}</wtpversion>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<webappDirectory>/usr/local/apache-tomcat-8.0.22/webapps</webappDirectory>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

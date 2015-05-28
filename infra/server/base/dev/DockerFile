@@ -23,7 +23,12 @@ RUN java -cp /usr/local/h2/bin/h2*.jar org.h2.tools.RunScript -url jdbc:h2:~/tes
 COPY infra/server/base/dev/context.xml /usr/local/apache-tomcat-8.0.22/conf/context.xml
 COPY infra/server/base/dev/h2-1.4.187.jar /usr/local/apache-tomcat-8.0.22/lib/h2-1.4.187.jar
 #COPY target/wicket-serialize-1.0-SNAPSHOT.war /usr/local/apache-tomcat-8.0.22/webapps/ws.war
-VOLUME /usr/local/apache-tomcat-8.0.22/webapps/ws.war
+#VOLUME /usr/local/apache-tomcat-8.0.22/webapps/ws.war
+RUN apt-get install -y maven
+RUN mkdir /root/wicket-serialize
+COPY pom.xml /root/wicket-serialize/pom.xml
+RUN mvn -f /root/wicket-serialize/pom.xml dependency:copy-dependencies
+VOLUME /root/wicket-serialize
 #未整理
 
 #RUN Services
